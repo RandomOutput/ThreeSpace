@@ -9,7 +9,8 @@ namespace Denizen.Input
     protected override void Awake()
     {
       base.Awake();
-      if (PlatformSettings.Instance.Platform == VRPlatform.STEAM_VR)
+      PlatformSettings settings = DenizenSettingsInjector.Instance.GetSettings<PlatformSettings>();
+      if (settings.Platform == VRPlatform.STEAM_VR)
       {
         DenizenSteamVRInputWrapper steamVRWrapper = gameObject.AddComponent<DenizenSteamVRInputWrapper>();
         DenizenInputManager inputManager = gameObject.AddComponent<DenizenInputManager>();

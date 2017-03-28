@@ -9,11 +9,11 @@ namespace Denizen
     {
       get
       {
-        if(PlatformSettings.Instance.Platform == VRPlatform.STEAM_VR)
+        PlatformSettings settings = DenizenSettingsInjector.Instance.GetSettings<PlatformSettings>();
+        if (settings.Platform == VRPlatform.STEAM_VR)
         {
           return OpenVR.k_unMaxTrackedDeviceCount;
         }
-
         return 0;
       }
     }

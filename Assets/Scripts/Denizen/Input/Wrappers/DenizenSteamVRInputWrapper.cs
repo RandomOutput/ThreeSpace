@@ -164,7 +164,7 @@ namespace Denizen.Input.Wrappers
 
     private Ray GetInteractionRay(DenizenTrackedObject trackedObject)
     {
-      return new Ray(GetPosition(trackedObject), GetOrientation(trackedObject) * Vector3.forward);
+      return new Ray(DenizenCameraManager.Instance.transform.TransformPoint(GetPosition(trackedObject)), DenizenCameraManager.Instance.transform.TransformDirection(GetOrientation(trackedObject) * Vector3.forward));
     }
   }
 }

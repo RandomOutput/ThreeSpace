@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Denizen.Utils;
+﻿using UnityEngine;
 
 namespace Denizen.Settings
 {
   [CreateAssetMenu(fileName = "PlatformSettings")]
-  public class PlatformSettings : ScriptableSingleton<PlatformSettings>
+  public class PlatformSettings : ScriptableObject
   {
     public VRPlatform Platform
     {

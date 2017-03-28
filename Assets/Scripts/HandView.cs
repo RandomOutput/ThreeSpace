@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Denizen;
+﻿using UnityEngine;
 using Denizen.Utils;
 using Denizen.Input;
 
@@ -38,6 +35,7 @@ public class HandView : MonoBehaviour {
   private void Update()
   {
     UpdateHandTracking();
+    DebugInteractionRay();
   }
 
   private void UpdateHandTracking()
@@ -56,5 +54,22 @@ public class HandView : MonoBehaviour {
     TrackedHand.TryGetOrientation(out orientation);
     transform.localPosition = position;
     transform.localRotation = orientation;
+  }
+
+  private void DebugInteractionRay()
+  {
+    DenizenTrackedObject TrackedHand;
+    if (!DenizenInputManager.Instance.TryGetChiralHand(_handChirality, out TrackedHand))
+    {
+      return;
+    }
+
+    Ray interactionRay;
+    if(!TrackedHand.TryGetInteractionRay(out interactionRay))
+    {
+      return;
+    }
+
+    Debug.DrawRay(interactionRay.origin, interactionRay.direction, Color.cyan);
   }
 }

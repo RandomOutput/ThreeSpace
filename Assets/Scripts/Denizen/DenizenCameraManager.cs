@@ -25,8 +25,10 @@ namespace Denizen
       bool overrideDefaultCamera = false;
       Camera newCamera = null;
 
-      if(PlatformSettings.Instance.Platform == VRPlatform.STEAM_VR) {
-        GameObject steamVRInstance = GameObject.Instantiate(PlatformSettings.Instance.SteamVRCameraPrefab, transform);
+      PlatformSettings settings = DenizenSettingsInjector.Instance.GetSettings<PlatformSettings>();
+
+      if (settings.Platform == VRPlatform.STEAM_VR) {
+        GameObject steamVRInstance = GameObject.Instantiate(settings.SteamVRCameraPrefab, transform);
         steamVRInstance.transform.localPosition = Vector3.zero;
         steamVRInstance.transform.localRotation = Quaternion.identity;
         newCamera = steamVRInstance.GetComponentInChildren<Camera>();
