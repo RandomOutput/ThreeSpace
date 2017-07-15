@@ -1,14 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Denizen.Utils;
 using Denizen.Input;
 
 public class HandView : MonoBehaviour {
   [SerializeField]
-  public Chirality _handChirality;
+  private Chirality _handChirality = Chirality.NONE;
+
+  public event Action HandEnabled;
+  public event Action HandDisabled;
 
   private bool _handEnabled = true;
 
-  public bool HandEnabled
+  public Chirality HandChirality
+  {
+    get { return _handChirality; }
+  }
+
+  public bool IsHandEnabled
   {
     get { return _handEnabled; }
     set
@@ -24,12 +33,21 @@ public class HandView : MonoBehaviour {
       {
         child.gameObject.SetActive(_handEnabled);
       }
+
+      if (value)
+      {
+        HandEnabled.Fire();
+      }
+      else
+      {
+        HandDisabled.Fire();
+      }
     }
   }
 
   private void Awake()
   {
-    HandEnabled = false;
+    IsHandEnabled = false;
   }
 
   private void Update()
@@ -43,11 +61,11 @@ public class HandView : MonoBehaviour {
     DenizenTrackedObject TrackedHand;
     if (!DenizenInputManager.Instance.TryGetChiralHand(_handChirality, out TrackedHand))
     {
-      HandEnabled = false;
+      IsHandEnabled = false;
       return;
     }
 
-    HandEnabled = TrackedHand.IsTracked;
+    IsHandEnabled = TrackedHand.IsTracked;
     Vector3 position;
     Quaternion orientation;
     TrackedHand.TryGetPosition(out position);
@@ -72,4 +90,6 @@ public class HandView : MonoBehaviour {
 
     Debug.DrawRay(interactionRay.origin, interactionRay.direction, Color.cyan);
   }
+
+
 }
