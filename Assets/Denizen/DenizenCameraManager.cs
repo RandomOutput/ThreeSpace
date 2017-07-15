@@ -9,6 +9,9 @@ namespace Denizen
     [SerializeField]
     private Camera _camera;
 
+    [SerializeField]
+    private Transform _cameraCenterTransform;
+
     public Camera Camera
     {
       get { return _camera; }
@@ -37,6 +40,11 @@ namespace Denizen
 
       if (overrideDefaultCamera && newCamera != null)
       {
+        _cameraCenterTransform.parent = newCamera.transform;
+        _cameraCenterTransform.localPosition = Vector3.zero;
+        _cameraCenterTransform.localRotation = Quaternion.identity;
+        _cameraCenterTransform.localScale = Vector3.one;
+
         Destroy(_camera.gameObject);
         _camera = newCamera;
       }

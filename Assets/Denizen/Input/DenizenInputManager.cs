@@ -17,10 +17,12 @@ namespace Denizen.Input
 
     public void Initialize(DenizenInputWrapper inputWrapper)
     {
+      PopulateTrackedObjectArray();
       _inputWrapper = inputWrapper;
       _inputWrapper.StartTrackingObjectCallback = StartTrackingObject;
       _inputWrapper.InputEventCallback = WrapperInputEventCallback;
       _inputWrapper.Connect();
+      base.Awake();
     }
 
     public DenizenTrackedObject GetTrackedObject(uint id)
@@ -45,8 +47,7 @@ namespace Denizen.Input
 
     protected override void Awake()
     {
-      base.Awake();
-      PopulateTrackedObjectArray();
+      //Override awake to do nothing. Calling base.Awake() in initialize.
     }
 
     private void PopulateTrackedObjectArray()

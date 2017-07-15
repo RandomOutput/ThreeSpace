@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Denizen.Utils;
 
 namespace Denizen.Input
 {

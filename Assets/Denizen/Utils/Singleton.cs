@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Denizen.Utils
 {
-  public class Singleton<T> : MonoBehaviour where T : Singleton<T>
+  public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
   {
+    public static event Action InstanceInitialized;
 
     public static T Instance
     {
@@ -20,6 +22,7 @@ namespace Denizen.Utils
       if (_instance == null)
       {
         _instance = (T)this;
+        InstanceInitialized.Fire();
       }
       else
       {
