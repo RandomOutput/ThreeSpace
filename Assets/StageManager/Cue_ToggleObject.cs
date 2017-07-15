@@ -82,7 +82,10 @@ public class Cue : MonoBehaviour
 
     if (Cues.ContainsValue(this))
     {
-      foreach (Cue cue in Cues.Values)
+      Cue[] cues = new Cue[Cues.Count];
+      Cues.Values.CopyTo(cues, 0);
+
+      foreach (Cue cue in cues)
       {
         if (cue == this)
         {

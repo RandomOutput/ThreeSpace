@@ -28,14 +28,14 @@ namespace ThreeSpace
       get { return gameObject; }
     }
 
-    protected virtual void Start()
+    protected virtual void OnEnable()
     {
-      InteractionManager.Instance.Register(this, StartInteraction, EndInteraction);
+      InteractionManager.AddAfterInitializedAction(() => InteractionManager.Instance.Register(this, StartInteraction, EndInteraction));
     }
 
-    protected virtual void OnDestroy()
+    protected virtual void OnDisable()
     {
-      InteractionManager.Instance.Deregister(this);
+        InteractionManager.AddAfterInitializedAction(() => InteractionManager.Instance.Deregister(this));
     }
 
     private void StartInteraction(IInteractor interactor)

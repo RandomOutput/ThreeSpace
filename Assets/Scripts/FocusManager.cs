@@ -53,14 +53,13 @@ namespace ThreeSpace
       }
     }
 
-    protected override void Awake()
-    {
-      base.Awake();
-      _registeredFocusables = new Dictionary<IFocusable, FocusableDelegates>();
-    }
-
     public void Register(IFocusable focusable, FocusDelegate focusDelegate, FocusDelegate unfocusDelegate)
     {
+      if (_registeredFocusables == null)
+      {
+        _registeredFocusables = new Dictionary<IFocusable, FocusableDelegates>();
+      }
+
       if(_registeredFocusables.ContainsKey(focusable))
       {
         Debug.LogError("Attempting to re-register focusable.");
@@ -72,7 +71,13 @@ namespace ThreeSpace
 
     public void Deregister(IFocusable focusable)
     {
-      if(!_registeredFocusables.ContainsKey(focusable))
+      if (_registeredFocusables == null)
+      {
+        Debug.LogError("Attempting to de-register a when no focusable are registered.");
+        return;
+      }
+
+      if (!_registeredFocusables.ContainsKey(focusable))
       {
         Debug.LogError("Attempting to de-register a non-registered focusable.");
         return;

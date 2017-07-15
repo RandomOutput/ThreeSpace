@@ -3,13 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicStageManagable : StageManagable{
-  public void Awake()
+  private bool hasInitialized = false;
+
+  protected virtual void Awake()
   {
+    Initialize();
+  }
+
+  protected virtual void Initialize()
+  {
+    if(hasInitialized)
+    {
+      return;
+    }
+
+    hasInitialized = true;
     gameObject.SetActive(false);
   }
 
   public override void Enter()
   {
+    Initialize();
     StartEnter();
     gameObject.SetActive(true);
     CompleteEnter();
@@ -17,7 +31,7 @@ public class BasicStageManagable : StageManagable{
 
   public override void Exit()
   {
-
+    Initialize();
     StartExit();
     gameObject.SetActive(false);
     CompleteExit();

@@ -56,11 +56,15 @@ namespace ThreeSpace
     protected override void Awake()
     {
       base.Awake();
-      _registeredInteractables = new Dictionary<IInteractable, InteractableDelegates>();
     }
 
     public void Register(IInteractable interactable, InteractionDelegate startInteractionDelegate, InteractionDelegate endInteractionDelegate)
     {
+      if(_registeredInteractables == null)
+      {
+        _registeredInteractables = new Dictionary<IInteractable, InteractableDelegates>();
+      }
+
       if (_registeredInteractables.ContainsKey(interactable))
       {
         Debug.LogError("Attempting to re-register interactable.");
@@ -72,6 +76,12 @@ namespace ThreeSpace
 
     public void Deregister(IInteractable interactable)
     {
+      if(_registeredInteractables == null)
+      {
+        Debug.LogError("Attempting to de-register a when no interactables are registered.");
+        return;
+      }
+
       if (!_registeredInteractables.ContainsKey(interactable))
       {
         Debug.LogError("Attempting to de-register a non-registered interactable.");

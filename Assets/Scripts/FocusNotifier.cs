@@ -27,14 +27,14 @@ namespace ThreeSpace
       get { return gameObject; }
     }
 
-    protected virtual void Start()
+    protected virtual void OnEnable()
     {
-      FocusManager.Instance.Register(this, Focus, Unfocus);
+      FocusManager.AddAfterInitializedAction(() => FocusManager.Instance.Register(this, Focus, Unfocus));
     }
 
-    protected virtual void OnDestroy()
+    protected virtual void OnDisable()
     {
-      FocusManager.Instance.Deregister(this);
+      FocusManager.AddAfterInitializedAction(() => FocusManager.Instance.Deregister(this));
     }
 
     private void Focus(IFocuser focuser)
