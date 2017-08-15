@@ -12,38 +12,44 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-public class BasicStageManagable : StageManagable{
-  private bool hasInitialized = false;
+using UnityEngine;
 
-  protected virtual void Awake()
+namespace StageManager
+{
+  public class BasicStageManagable : StageManagable
   {
-    Initialize();
-  }
+    private bool hasInitialized = false;
 
-  protected virtual void Initialize()
-  {
-    if(hasInitialized)
+    protected virtual void Awake()
     {
-      return;
+      Initialize();
     }
 
-    hasInitialized = true;
-    gameObject.SetActive(false);
-  }
+    protected virtual void Initialize()
+    {
+      if (hasInitialized)
+      {
+        return;
+      }
 
-  public override void Enter()
-  {
-    Initialize();
-    StartEnter();
-    gameObject.SetActive(true);
-    CompleteEnter();
-  }
+      hasInitialized = true;
+      gameObject.SetActive(false);
+    }
 
-  public override void Exit()
-  {
-    Initialize();
-    StartExit();
-    gameObject.SetActive(false);
-    CompleteExit();
+    public override void Enter(Animator stageManager)
+    {
+      Initialize();
+      StartEnter();
+      gameObject.SetActive(true);
+      CompleteEnter();
+    }
+
+    public override void Exit(Animator StageManager)
+    {
+      Initialize();
+      StartExit();
+      gameObject.SetActive(false);
+      CompleteExit();
+    }
   }
 }

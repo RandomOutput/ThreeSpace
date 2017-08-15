@@ -15,7 +15,8 @@
 using System;
 using UnityEngine;
 
-namespace ThreeSpace {
+namespace Denizen.Input.Interactions
+{
   public class FocuserEvent : EventArgs {
     public readonly bool FocusEnabled;
 

@@ -24,7 +24,7 @@ public class StageManagable : MonoBehaviour {
   public event Action StartExitScene;
   public event Action CompleteExitScene;
 
-  public virtual void Enter()
+  public virtual void Enter(Animator stageManager)
   {
     StartEnter();
     CompleteEnter();
@@ -40,7 +40,7 @@ public class StageManagable : MonoBehaviour {
     CompleteEnterScene.Fire();
   }
 
-  public virtual void Exit()
+  public virtual void Exit(Animator stageManager)
   {
     StartExit();
     CompleteExit();

@@ -16,72 +16,77 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CueSelector : StateMachineBehaviour {
-  [SerializeField]
-  private string SelectedItem;
-
-  public string SelectedCueName
+namespace StageManager
+{
+  public class CueSelector : StateMachineBehaviour
   {
-    get
-    {
-      return SelectedItem;
-    }
-  }
+    [SerializeField]
+    private string SelectedItem;
 
-  public Cue SelectedCue
-  {
-    get
+    public string SelectedCueName
     {
-      SelectedItem = SelectedItem == null ? "" : SelectedItem;
-      Cue cue;
-      if(!Cue.TryGetCue(SelectedItem, out cue))
+      get
       {
-        return null;
+        return SelectedItem;
       }
-
-      return cue;
     }
-  }
 
-  public int SelectedCueIndex
-  {
-    get
+    public Cue SelectedCue
     {
-      string[] cueNames = Cue.CueNames;
-
-
-      for (int i = 0; i < cueNames.Length; i++)
+      get
       {
-        if(cueNames[i] == SelectedItem)
+        SelectedItem = SelectedItem == null ? "" : SelectedItem;
+        Cue cue;
+        if (!Cue.TryGetCue(SelectedItem, out cue))
         {
-          return i;
+          return null;
         }
+
+        return cue;
+      }
+    }
+
+    public int SelectedCueIndex
+    {
+      get
+      {
+        string[] cueNames = Cue.CueNames;
+
+
+        for (int i = 0; i < cueNames.Length; i++)
+        {
+          if (cueNames[i] == SelectedItem)
+          {
+            return i;
+          }
+        }
+
+        return -1;
       }
 
-      return -1;
+      set
+      {
+        SelectedItem = Cue.CueNames[value];
+      }
     }
 
-    set
+    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-      SelectedItem = Cue.CueNames[value];
+      Cue cue = SelectedCue;
+      if (cue != null)
+      {
+        cue.DoCueEntry();
+      }
     }
-  }
 
-	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    Cue cue = SelectedCue;
-    if(cue != null)
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-      cue.DoCueEntry();
-    }
-	}
-
-  public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-  {
-    Cue cue = SelectedCue;
-    if (cue != null)
-    {
-      cue.DoCueExit();
+      Cue cue = SelectedCue;
+      if (cue != null)
+      {
+        cue.DoCueExit();
+      }
     }
   }
 }

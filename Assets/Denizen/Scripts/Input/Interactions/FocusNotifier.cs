@@ -16,7 +16,7 @@ using System;
 using UnityEngine;
 using Denizen.Utils;
 
-namespace ThreeSpace
+namespace Denizen.Input.Interactions
 {
   public class FocusNotifier : MonoBehaviour, IFocusable
   {

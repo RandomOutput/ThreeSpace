@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Denizen.Utils;
 
-namespace ThreeSpace
+namespace Denizen.Input.Interactions
 {
   public class InteractionManagerEvent : EventArgs
   {

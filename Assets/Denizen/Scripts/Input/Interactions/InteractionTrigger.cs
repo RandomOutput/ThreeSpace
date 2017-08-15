@@ -16,7 +16,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ThreeSpace
+namespace Denizen.Input.Interactions
 {
   [RequireComponent(typeof(BoolTrigger))]
   [RequireComponent(typeof(InteractionNotifier))]

@@ -15,29 +15,29 @@
 using System;
 using UnityEngine;
 
-namespace ThreeSpace
+namespace Denizen.Input.Interactions
 {
-  public interface IFocusable
+  public interface IInteractable
   {
-    event Action Focused;
-    event Action Unfocused;
+    event Action InteractionStart;
+    event Action InteractionEnd;
 
     GameObject ParentObject
     {
       get;
     }
 
-    bool IsFocused
+    bool IsInteractedWith
     {
       get;
     }
 
-    IFocuser Focuser
+    IInteractor Interactor
     {
       get;
     }
 
-    bool TryFocus(IFocuser focuser);
-    bool TryUnfocus(IFocuser focuser);
+    bool TryStartInteraction(IInteractor interactor);
+    bool TryStopInteraction(IInteractor interactor);
   }
 }

@@ -15,6 +15,7 @@
 using System;
 using UnityEngine;
 using Denizen.Utils;
+using Denizen.Input.Interactions;
 
 namespace ThreeSpace
 {

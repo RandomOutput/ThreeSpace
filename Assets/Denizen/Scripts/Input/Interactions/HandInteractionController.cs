@@ -14,11 +14,10 @@
 
 using System;
 using UnityEngine;
-using Denizen.Input;
 using Denizen.Utils;
 using LineDrawing;
 
-namespace ThreeSpace
+namespace Denizen.Input.Interactions
 {
   public class FocusChangedEvent : EventArgs
   {
